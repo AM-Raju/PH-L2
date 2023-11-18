@@ -9,7 +9,12 @@ const app = (0, express_1.default)();
 const port = 3000;
 // Parsers
 app.use(express_1.default.json());
-app.get("/", (req, res) => {
+// middleware
+const logger = (req, res, next) => {
+    console.log(req.url, req.method, req.hostname);
+    next();
+};
+app.get("/", logger, (req, res) => {
     res.send("Hello World. Its me!");
 });
 app.post("/", (req, res) => {
