@@ -7,8 +7,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 3000;
+// Router
+const userRouter = express_1.default.Router();
 // Parsers
 app.use(express_1.default.json());
+app.use("/api/v1/users", userRouter);
+userRouter.get("/create-user", (req, res) => {
+    const user = req.body;
+    console.log(user);
+    res.json({
+        success: true,
+        massage: "User is created successfully",
+        data: user,
+    });
+});
 // middleware
 const logger = (req, res, next) => {
     console.log(req.url, req.method, req.hostname);
