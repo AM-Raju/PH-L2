@@ -26,11 +26,36 @@ const logger = (req, res, next) => {
     console.log(req.url, req.method, req.hostname);
     next();
 };
-app.get("/", logger, (req, res) => {
-    res.send("Hello World. Its me!");
+app.get("/", logger, (req, res, next) => {
+    try {
+        res.send(user);
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+        /* res.status(400).json({
+          success: false,
+          message: "Failed to get data",
+        }); */
+    }
 });
 app.post("/", (req, res) => {
     console.log(req.body);
     res.send("Got data");
+});
+app.all("*", (req, res) => {
+    res.status(400).json({
+        success: false,
+        massage: "Route isnt found",
+    });
+});
+// Global error handler
+app.use((error, req, res, next) => {
+    if (error) {
+        res.status(400).json({
+            success: false,
+            message: "Something went wrong",
+        });
+    }
 });
 exports.default = app;
