@@ -11,7 +11,7 @@ server.on("request", (req, res) => {
   console.log(req.url === "/read-file" && req.method === "GET");
 
   // streaming file reading
-  const readableStream = fs.createReadStream(process.cwd() + "/text/readf.txt");
+  const readableStream = fs.createReadStream(process.cwd() + "/text/read.txt");
 
   // Streaming buffer listener
   readableStream.on("data", (buffer) => {
