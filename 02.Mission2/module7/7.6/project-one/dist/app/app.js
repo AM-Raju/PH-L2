@@ -28,7 +28,7 @@ const logger = (req, res, next) => {
 };
 app.get("/", logger, (req, res, next) => {
     try {
-        res.send(user);
+        res.send({ name: "Raju" });
     }
     catch (error) {
         console.log(error);

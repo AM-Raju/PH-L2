@@ -29,7 +29,7 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
 
 app.get("/", logger, (req: Request, res: Response, next: NextFunction) => {
   try {
-    res.send(user);
+    res.send({ name: "Raju" });
   } catch (error) {
     console.log(error);
     next(error);
