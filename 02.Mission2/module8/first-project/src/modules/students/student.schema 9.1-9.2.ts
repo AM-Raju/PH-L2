@@ -1,5 +1,4 @@
-import validator from "validator";
-import { Schema, model, connect } from "mongoose";
+/* import { Schema, model, connect } from "mongoose";
 import { Guardian, LocalGuardian, Student, UserName } from "./student.interface";
 
 // Subschema for name
@@ -18,15 +17,7 @@ const userNameSchema = new Schema<UserName>({
     },
   },
   middleName: { type: String, trim: true },
-  lastName: {
-    type: String,
-    required: [true, "Last name is required."],
-    trim: true,
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: "{VALUE} isn't valid",
-    },
-  },
+  lastName: { type: String, required: [true, "Last name is required."], trim: true },
 });
 
 // Subschema for guardian
@@ -54,21 +45,14 @@ const studentSchema = new Schema<Student>({
   gender: {
     type: String,
     enum: {
-      values: ["male", "female", "others"],
-      /* message: "Gender field can be one of the following: 'male', 'female', and 'other'", */
+      values: ["male", "female", "other"],
+      // message: "Gender field can be one of the following: 'male', 'female', and 'other'",
       message: "{VALUE} is not valid",
     },
     required: [true, "Gender is required"],
   },
   dateOfBirth: String,
-  email: {
-    type: String,
-    required: [true, "Email is required."],
-    validate: {
-      validator: (value: string) => validator.isEmail(value),
-      message: "{VALUE} isn't email",
-    },
-  },
+  email: { type: String, required: [true, "Email is required."] },
   contactNo: { type: String, required: true },
   emergencyContactNo: { type: String, required: true },
   bloodGroup: {
@@ -86,3 +70,4 @@ const studentSchema = new Schema<Student>({
 // Creation of student model
 
 export const StudentModel = model<Student>("Student", studentSchema);
+ */

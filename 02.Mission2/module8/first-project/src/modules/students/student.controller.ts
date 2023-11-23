@@ -1,12 +1,27 @@
 import { Request, Response } from "express";
 import { StudentServices } from "./student.service";
+import { z } from "zod";
+import zodStudentSchema from "./student.zod.validation";
+// import joiStudentSchema from "./student.joi.validation";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    const student = req.body.student;
+    const { student: studentData } = req.body;
 
+    // With this commented code we validate inputted data using joi
+    /*  const { error, value } = joiStudentSchema.validate(studentData);
+    if (error) {
+      res.status(500).json({
+        success: false,
+        message: "Something went wrong in joi",
+        error: error.details,
+      });
+    } */
+
+    // Here we validate inputted data using Zod.
+    const zodParsedData = zodStudentSchema.parse(studentData);
     // will call service func to send this data
-    const result = await StudentServices.createStudentIntoDB(student);
+    const result = await StudentServices.createStudentIntoDB(zodParsedData);
     // send response
     res.status(200).json({
       success: true,
