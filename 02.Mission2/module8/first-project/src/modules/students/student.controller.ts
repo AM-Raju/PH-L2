@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { StudentServices } from "./student.service";
-import { z } from "zod";
 import zodStudentSchema from "./student.zod.validation";
 // import joiStudentSchema from "./student.joi.validation";
 
@@ -28,10 +27,10 @@ const createStudent = async (req: Request, res: Response) => {
       message: "Student is created successfully.",
       data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: "Something went wrong",
+      message: err.message || "Something went wrong",
       error: err,
     });
   }
@@ -73,8 +72,28 @@ const getSingleStudent = async (req: Request, res: Response) => {
   }
 };
 
+const deleteStudent = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const result = await StudentServices.deleteStudentFromDB(id);
+    res.status(200).json({
+      success: true,
+      message: "Student deleted successfully",
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: err,
+    });
+  }
+};
+
 export const StudentControllers = {
   createStudent,
   getAllStudents,
   getSingleStudent,
+  deleteStudent,
 };
