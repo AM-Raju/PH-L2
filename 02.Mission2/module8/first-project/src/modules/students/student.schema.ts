@@ -1,7 +1,7 @@
 import validator from "validator";
 import { Schema, model, connect } from "mongoose";
 import { TGuardian, TStudent, StudentModel, TUserName, TLocalGuardian } from "./student.interface";
-import bcript from "bcrypt";
+import bcrypt from "bcrypt";
 import config from "../../config";
 
 // Subschema for name
@@ -108,7 +108,7 @@ studentSchema.pre("save", async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
   // hashing password in save into DB
-  user.password = await bcript.hash(user.password, Number(config.dcript_salt_round));
+  user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_round));
   next();
 });
 
